@@ -1,0 +1,26 @@
+# Proto Net experiments
+python -m experiments.proto_nets --dataset miniImageNet --k-test 5 --n-test 1 --k-train 20 --n-train 1 --q-train 15
+python -m experiments.proto_nets --dataset miniImageNet --k-test 5 --n-test 5 --k-train 20 --n-train 5 --q-train 15
+
+# Matching Network experiments
+python -m experiments.matching_nets --dataset miniImageNet --fce False --k-test 5 --n-test 1 --distance l2
+python -m experiments.matching_nets --dataset miniImageNet --fce False --k-test 5 --n-test 5 --distance l2
+python -m experiments.matching_nets --dataset miniImageNet --fce True --k-test 5 --n-test 1 --distance l2
+python -m experiments.matching_nets --dataset miniImageNet --fce True --k-test 5 --n-test 5 --n-train 5 --distance l2
+
+python -m experiments.matching_nets --dataset miniImageNet --fce False --k-test 5 --n-test 1 --distance cosine
+python -m experiments.matching_nets --dataset miniImageNet --fce False --k-test 5 --n-test 5 --distance cosine
+python -m experiments.matching_nets --dataset miniImageNet --fce True --k-test 5 --n-test 1 --distance cosine
+python -m experiments.matching_nets --dataset miniImageNet --fce True --k-test 5 --n-test 5 --n-train 5 --distance cosine
+
+# 1st order MAML
+python -m experiments.maml --dataset miniImageNet --order 1 --n 1 --k 5 --q 5 --meta-batch-size 4 \
+    --inner-train-steps 5 --inner-val-steps 10 --inner-lr 0.01 --eval-batches 40 --epoch-len 400
+python -m experiments.maml --dataset miniImageNet --order 1 --n 5 --k 5 --q 5 --meta-batch-size 4 \
+    --inner-train-steps 5 --inner-val-steps 10 --inner-lr 0.01 --eval-batches 40 --epoch-len 400
+
+# 2nd order MAML
+python -m experiments.maml --dataset miniImageNet --order 2 --n 1 --k 5 --q 5 --meta-batch-size 4 \
+    --inner-train-steps 5 --inner-val-steps 10 --inner-lr 0.01 --eval-batches 80 --epoch-len 400
+python -m experiments.maml --dataset miniImageNet --order 2 --n 5 --k 5 --q 5 --meta-batch-size 2 \
+    --inner-train-steps 5 --inner-val-steps 10 --inner-lr 0.01 --eval-batches 80 --epoch-len 800
