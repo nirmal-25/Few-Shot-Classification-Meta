@@ -1,3 +1,5 @@
+### Few-Shot Image Classification in Non-Euclidean Space
+
 Install packages from requirements.txt (Anaconda env .yaml file is also given)
 
 ```
@@ -25,6 +27,12 @@ For example, from the root folder run,
 python -m experiments.proto_nets --dataset miniImageNet --k-test 5 --n-test 5 --k-train 20 --n-train 5 --q-train 15
 ```
 
+**Results**
+
+5-way 5-shot learning on mini-ImageNet
+
+![](images/result.png)
+
 **Approach**
 - ```dataset```: {'miniImageNet'}.
 - ```distance```: {'l2'}. Which distance metric to use (l2 - Euclidean)
@@ -37,7 +45,7 @@ python -m experiments.proto_nets --dataset miniImageNet --k-test 5 --n-test 5 --
 
 **Non-Euclidean**
 
-For changes in the Non-Euclidean space, check ```models.py```
+For changes in the Non-Euclidean space, check ```few_shot/models.py``` and the main files in ```experiments/```
 
 **References**
 
