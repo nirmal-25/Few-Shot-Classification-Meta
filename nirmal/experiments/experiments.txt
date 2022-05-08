@@ -1,7 +1,3 @@
-# Proto Net experiments
-python -m experiments.proto_nets --dataset miniImageNet --k-test 5 --n-test 1 --k-train 20 --n-train 1 --q-train 15
-python -m experiments.proto_nets --dataset miniImageNet --k-test 5 --n-test 5 --k-train 20 --n-train 5 --q-train 15
-
 # Matching Network experiments
 python -m experiments.matching_nets --dataset miniImageNet --fce False --k-test 5 --n-test 1 --distance l2
 python -m experiments.matching_nets --dataset miniImageNet --fce False --k-test 5 --n-test 5 --distance l2

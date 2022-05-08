@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 from torch import nn
 import argparse
 
-from few_shot.datasets import MiniImageNet
+from few_shot.datasets import OmniglotDataset, MiniImageNet
 from few_shot.core import NShotTaskSampler, create_nshot_task_label, EvaluateFewShot
 from few_shot.maml import meta_gradient_step
 from few_shot.models import FewShotClassifier
@@ -13,12 +13,13 @@ from few_shot.train import fit
 from few_shot.callbacks import *
 from few_shot.utils import setup_dirs
 from config import PATH
+import mctorch.optim as moptim
 
 if __name__ == '__main__':
     setup_dirs()
-    # assert torch.cuda.is_available()
-    device = torch.device('cpu')
-    # torch.backends.cudnn.benchmark = True
+    assert torch.cuda.is_available()
+    device = torch.device('cuda')
+    torch.backends.cudnn.benchmark = True
 
 
     ##############
@@ -41,12 +42,14 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if args.dataset == 'miniImageNet':
+    if args.dataset == 'omniglot':
+        dataset_class = OmniglotDataset
+        fc_layer_size = 64
+        num_input_channels = 1
+    elif args.dataset == 'miniImageNet':
         dataset_class = MiniImageNet
         fc_layer_size = 1600
         num_input_channels = 3
-        n_epochs = 50
-        drop_lr_every = 30
     else:
         raise(ValueError('Unsupported dataset'))
 
@@ -62,14 +65,14 @@ if __name__ == '__main__':
     background_taskloader = DataLoader(
         background,
         batch_sampler=NShotTaskSampler(background, args.epoch_len, n=args.n, k=args.k, q=args.q,
-                                    num_tasks=args.meta_batch_size),
+                                       num_tasks=args.meta_batch_size),
         num_workers=8
     )
     evaluation = dataset_class('evaluation')
     evaluation_taskloader = DataLoader(
         evaluation,
         batch_sampler=NShotTaskSampler(evaluation, args.eval_batches, n=args.n, k=args.k, q=args.q,
-                                    num_tasks=args.meta_batch_size),
+                                       num_tasks=args.meta_batch_size),
         num_workers=8
     )
 
@@ -79,7 +82,9 @@ if __name__ == '__main__':
     ############
     print(f'Training MAML on {args.dataset}...')
     meta_model = FewShotClassifier(num_input_channels, args.k, fc_layer_size).to(device, dtype=torch.double)
-    meta_optimiser = torch.optim.Adam(meta_model.parameters(), lr=args.meta_lr)
+    # meta_optimiser = torch.optim.Adam(meta_model.parameters(), lr=args.meta_lr)
+    meta_optimiser = moptim.rAdagrad(params=meta_model.parameters(), lr=args.meta_lr)
+
     loss_fn = nn.CrossEntropyLoss().to(device)
 
 
@@ -93,7 +98,7 @@ if __name__ == '__main__':
             # Move to device
             x = x.double().to(device)
             # Create label
-            y = create_nshot_task_label(k, q).repeat(meta_batch_size)
+            y = create_nshot_task_label(k, q).cuda().repeat(meta_batch_size)
             return x, y
 
         return prepare_meta_batch_
@@ -134,7 +139,7 @@ if __name__ == '__main__':
         metrics=['categorical_accuracy'],
         fit_function=meta_gradient_step,
         fit_function_kwargs={'n_shot': args.n, 'k_way': args.k, 'q_queries': args.q,
-                            'train': True,
-                            'order': args.order, 'device': device, 'inner_train_steps': args.inner_train_steps,
-                            'inner_lr': args.inner_lr},
+                             'train': True,
+                             'order': args.order, 'device': device, 'inner_train_steps': args.inner_train_steps,
+                             'inner_lr': args.inner_lr},
     )
