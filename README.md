@@ -1,4 +1,4 @@
-# Few-Shot Image Classification using Meta Learning 
+# Few-Shot Image Classification
 
 Experiments on the mini-ImageNet dataset
  - Transductive CNAPS
