@@ -14,7 +14,7 @@ In order to re-create these experiments, you need to:
 
 2. Once the setup is complete, use ```run_transductive_cnaps_mt.py``` to run mini-imagenet experiments:
     
-    ```cd src; python run_transductive_cnaps_mt.py --dataset <choose either mini or tiered> --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose resnet pretrained checkpoint>```
+    ```cd src; python run_transductive_cnaps_mt.py --dataset mini --feature_adaptation film --checkpoint_dir <address of the directory where you want to save the checkpoints> --pretrained_resnet_path <choose pretrained_resnets folder>```
 
 
 
