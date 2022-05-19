@@ -1,4 +1,4 @@
-# Few-Shot Image Classification
+# Few-Shot Image Classification in Non-Euclidean Spaces
 Popular few-shot algorithms are trained on the mini-ImageNet dataset in both Euclidean and Non-Euclidean spaces. From our experiments we find that the non-Euclidean geometry has improved the results for some tasks as shown in the table below. Furthermore, the use of non-Euclidean space can improve the model performance where there are implicit hierarchical relations in the input. 
 
 #### Experiments on the mini-ImageNet dataset
