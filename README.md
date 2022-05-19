@@ -9,8 +9,6 @@ Popular few-shot algorithms are trained on the mini-ImageNet dataset in both Euc
 ```mini-ImageNet-1``` has implementations for MAML and Matching Networks, whereas ```mini-ImageNet-2-Transductive-CNAPS``` consists of the Transductive CNAPS implementation, in which we obtain the highest test accuracy of 71.4 % for 5-way 5-shot image classification using our non-Euclidean model. 
 
 
-
-#### Results
 *5-Way 5-Shot Learning on mini-ImageNet Dataset*
 
 <img src="https://user-images.githubusercontent.com/51696913/169417494-c8d3365b-3764-466f-a39b-f56a2b5ffb8e.png" width="600">
