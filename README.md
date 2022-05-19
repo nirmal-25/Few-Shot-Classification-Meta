@@ -14,7 +14,8 @@ Popular few-shot algorithms are trained on the mini-ImageNet dataset in both Euc
 <img src="https://user-images.githubusercontent.com/51696913/169417494-c8d3365b-3764-466f-a39b-f56a2b5ffb8e.png" width="600">
 
 ### References
-[1] [Transductive CNAPS](https://arxiv.org/abs/2201.05151) <br/>
-[2] [Non-Euclidean Library](https://github.com/mctorch/mctorch)<br/>
-[3] [Few-Shot Algorithms](https://github.com/oscarknagg/few-shot)<br/>
+[1] [mini-ImageNet](https://arxiv.org/pdf/1606.04080.pdf)
+[2] [Transductive CNAPS](https://arxiv.org/abs/2201.05151) <br/>
+[3] [Non-Euclidean Library](https://github.com/mctorch/mctorch)<br/>
+[4] [Few-Shot Algorithms](https://github.com/oscarknagg/few-shot)<br/>
 
